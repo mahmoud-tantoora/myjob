@@ -18,12 +18,15 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public Itemdata[] itemdata;
     public Context context;
     public int type;
+    public String idwork,idcomp;
 
-    public MyAdapter(Itemdata[] itemdata,Context context)
+    public MyAdapter(Itemdata[] itemdata,Context context,String idworker,String idcompany)
     {
         this.context=context;
         this.itemdata=itemdata;
         this.itemdata[0]=null;
+        idwork = idworker;
+        idcomp = idcompany;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -56,6 +59,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 public void onClick(View v) {
                     // create post here
                     Intent intent=new Intent(context,createpost.class);
+                    intent.putExtra("idcompany",idcomp);
                     context.startActivity(intent);
                 }
             });

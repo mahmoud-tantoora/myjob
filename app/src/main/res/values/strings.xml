@@ -49,6 +49,7 @@
     <string name="Create_cv">Create_cv</string>
 
     <string name="write_number_worker_needed">write number worker needed</string>
+    <string name="jobname">Job Name</string>
     <string name="description">description</string>
     <string name="choses_image">shose image....</string>
     <string name="specialization">specialization</string>

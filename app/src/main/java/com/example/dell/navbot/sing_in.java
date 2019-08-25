@@ -48,12 +48,7 @@ public class sing_in extends AppCompatActivity {
             _signupButton.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    int t = signup();
-                    Intent intent = new Intent(getApplicationContext(), start_cv.class);
-                    intent.putExtra("id_email",String.valueOf(t));
-                    startActivityForResult(intent, 1);
-                    finish();
-                    overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
+                    signup();
                 }
             });
 
@@ -69,7 +64,7 @@ public class sing_in extends AppCompatActivity {
             });
         }
 
-        public int signup() {
+        public void signup() {
             Log.d(TAG, "Signup");
 
          /*   if (!validate()) {
@@ -79,12 +74,13 @@ public class sing_in extends AppCompatActivity {
 */
             _signupButton.setEnabled(false);
 
-            final ProgressDialog progressDialog = new ProgressDialog(sing_in.this,
+       /*     final ProgressDialog progressDialog = new ProgressDialog(sing_in.this,
                     R.style.AppTheme_Dark_Dialog);
             progressDialog.setIndeterminate(true);
             progressDialog.setMessage("Creating Account...");
             progressDialog.show();
-            final int[] Id_result = {0};
+         */
+           // final int[] Id_result = {0};
             final String name = _nameText.getText().toString();
             final String email = _emailText.getText().toString();
             final String mobile = _mobileText.getText().toString();
@@ -103,16 +99,34 @@ public class sing_in extends AppCompatActivity {
                 spValue[0] = 1;
             if (spValue[0] == 1) {
 
-                ///  insert new worker
+
+                ///  insert new worker and insert email for this worker
+
                 String Url = "http://my-app-ammar.000webhostapp.com/insertworker.php";
                 StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            JSONObject jsonObject = new JSONObject(response);
+                            String success = jsonObject.getString("response");
+                            if (!success.equals("Error")) {
+                                Toast.makeText(getApplicationContext(), "Account Worker successfully created ", Toast.LENGTH_LONG).show();
+                                String  idworker = jsonObject.getString("idworker");
+                                String  idcompany = jsonObject.getString("idcompany");
+                             //   Toast.makeText(getApplicationContext(),"Welcome " + name,Toast.LENGTH_SHORT).show();
+                                Intent intent = new Intent(getApplicationContext(), cv_woker.class);
+                                intent.putExtra("id_email",success);
+                                intent.putExtra("idworker",idworker);
+                                intent.putExtra("idcompany",idcompany);
+                                startActivityForResult(intent, 1);
+                                finish();
+                                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
 
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "something  is error", Toast.LENGTH_LONG).show();
+
+
+                            }} catch (Exception e) {
+                            Toast.makeText(getApplicationContext(), "Email or phone number already used", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -128,6 +142,10 @@ public class sing_in extends AppCompatActivity {
 
                         params.put("name", name);
                         params.put("mobile", mobile);
+                        params.put("email", email);
+                        params.put("password", password);
+                        params.put("type", String.valueOf(spValue[0]));
+
                         return params;
                     }
                 };
@@ -135,122 +153,7 @@ public class sing_in extends AppCompatActivity {
                 requestQueue.add(stringRequest);
 
 
-                // get id for new worker
-                final int[] id_worker = {0};
-                String Urlid = "http://my-app-ammar.000webhostapp.com/getcount.php";
-                StringRequest stringRequestid = new StringRequest(Request.Method.POST, Urlid, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("response");
-                            if (!success.equals("ER")) {
-                                id_worker[0] = Integer.parseInt(success);
 
-                            }
-
-
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "something  is error", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("mobile", mobile);
-                        return params;
-                    }
-                };
-                RequestQueue requestQueueid = Volley.newRequestQueue(getApplicationContext());
-                requestQueueid.add(stringRequestid);
-
-
-                /////   insert Email
-
-                String Urlemail = "http://my-app-ammar.000webhostapp.com/insertemail.php";
-                StringRequest stringRequestEmail = new StringRequest(Request.Method.POST, Urlemail, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("message");
-                            if (!success.equals("Error")) {
-                                Toast.makeText(getApplicationContext(), "Account Worker successfully created ", Toast.LENGTH_LONG).show();
-
-                            }
-
-
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "something  is error", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("email", email);
-                        params.put("id_worker", String.valueOf(id_worker[0]));
-                        params.put("password", password);
-                        params.put("phone", mobile);
-                        params.put("type", String.valueOf(spValue[0]));
-                        return params;
-                    }
-                };
-                RequestQueue requestQueueemail = Volley.newRequestQueue(getApplicationContext());
-                requestQueueemail.add(stringRequestEmail);
-
-                //  get id_email and return this id
-                String UrlgetId = "http://my-app-ammar.000webhostapp.com/login.php";
-
-                StringRequest stringRequestIdGet = new StringRequest(Request.Method.POST, UrlgetId, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            String  success = jsonObject.getString("response");
-                            if(!success.equals("ER"))
-                            {
-                                       Id_result[0] = Integer.parseInt(success);
-
-
-                            }else {Toast.makeText(getApplicationContext(),"The Information Not Correct",Toast.LENGTH_SHORT).show();}
-
-                        }catch (Exception e)
-                        {
-                            Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<>();
-
-                        params.put("email",email);
-                        params.put("password",password);
-                        return params;
-                    }
-                };
-                RequestQueue requestQueueget = Volley.newRequestQueue(getApplicationContext());
-                requestQueueget.add(stringRequestIdGet);
 
 
             } else   /// company
@@ -260,86 +163,25 @@ public class sing_in extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
-
-
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "something  is error", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-
-                        params.put("name", name);
-                        params.put("mobile", mobile);
-                        return params;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                requestQueue.add(stringRequest);
-
-
-                // get id for new company
-                final int[] id_company = {0};
-                String Urlid = "http://my-app-ammar.000webhostapp.com/getidcompany.php";
-                StringRequest stringRequestid = new StringRequest(Request.Method.POST, Urlid, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
                             JSONObject jsonObject = new JSONObject(response);
                             String success = jsonObject.getString("response");
-                            if (!success.equals("ER")) {
-                                id_company[0] = Integer.parseInt(success);
-
-                            }
-
-
-                        } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "something  is error", Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
-                    }
-                }) {
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String, String> params = new HashMap<>();
-                        params.put("mobile", mobile);
-                        return params;
-                    }
-                };
-                RequestQueue requestQueueid = Volley.newRequestQueue(getApplicationContext());
-                requestQueueid.add(stringRequestid);
-
-
-                /////   insert Email for company
-
-                String Urlemail = "http://my-app-ammar.000webhostapp.com/insertemailcompany.php";
-                StringRequest stringRequestEmail = new StringRequest(Request.Method.POST, Urlemail, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-                            String success = jsonObject.getString("message");
                             if (!success.equals("Error")) {
                                 Toast.makeText(getApplicationContext(), "Account Company successfully created ", Toast.LENGTH_LONG).show();
+                                String idworker = jsonObject.getString("idworker");
+                               String idcompany = jsonObject.getString("idcompany");
+                             //   Toast.makeText(getApplicationContext(), "Welcome " + name +" Company", Toast.LENGTH_SHORT).show();
+                               Intent intent = new Intent(getApplicationContext(), cv_woker.class);
+                                intent.putExtra("id_email", success);
+                                intent.putExtra("idworker", idworker);
+                                intent.putExtra("idcompany", idcompany);
+                                startActivityForResult(intent, 1);
+                                finish();
+                                overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
 
                             }
 
-
                         } catch (Exception e) {
-                            Toast.makeText(getApplicationContext(), "something  is error", Toast.LENGTH_LONG).show();
+                            Toast.makeText(getApplicationContext(), "Email or phone number already used", Toast.LENGTH_LONG).show();
                         }
 
                     }
@@ -353,62 +195,21 @@ public class sing_in extends AppCompatActivity {
                     protected Map<String, String> getParams() throws AuthFailureError {
                         Map<String, String> params = new HashMap<>();
                         params.put("email", email);
-                        params.put("id_company", String.valueOf(id_company[0]));
                         params.put("password", password);
-                        params.put("phone", mobile);
                         params.put("type", String.valueOf(spValue[0]));
+                        params.put("name", name);
+                        params.put("mobile", mobile);
                         return params;
                     }
                 };
-                RequestQueue requestQueueemail = Volley.newRequestQueue(getApplicationContext());
-                requestQueueemail.add(stringRequestEmail);
-
-                //  get id_email and return this id
-                String UrlgetId = "http://my-app-ammar.000webhostapp.com/login.php";
-
-                StringRequest stringRequestIdGet = new StringRequest(Request.Method.POST, UrlgetId, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            String  success = jsonObject.getString("response");
-                            if(!success.equals("ER"))
-                            {
-                                Id_result[0] = Integer.parseInt(success);
-
-
-                            }else {Toast.makeText(getApplicationContext(),"The Information Not Correct",Toast.LENGTH_SHORT).show();}
-
-                        }catch (Exception e)
-                        {
-                            Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<>();
-
-                        params.put("email",email);
-                        params.put("password",password);
-                        return params;
-                    }
-                };
-                RequestQueue requestQueueget = Volley.newRequestQueue(getApplicationContext());
-                requestQueueget.add(stringRequestIdGet);
-
+                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+                requestQueue.add(stringRequest);
 
             }
 
             // TODO: Implement your own signup logic here.
 
-            new android.os.Handler().postDelayed(
+        /*    new android.os.Handler().postDelayed(
                     new Runnable() {
                         public void run() {
                             // On complete call either onSignupSuccess or onSignupFailed
@@ -417,10 +218,10 @@ public class sing_in extends AppCompatActivity {
                             // onSignupFailed();
                             progressDialog.dismiss();
                         }
-                    }, 3000);
+                    }, 3000);*/
         }
 
-    return Id_result[0];
+
     }
 
 
@@ -431,7 +232,7 @@ public class sing_in extends AppCompatActivity {
         }
 
         public void onSignupFailed() {
-            Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
+           // Toast.makeText(getBaseContext(), "Login failed", Toast.LENGTH_LONG).show();
 
             _signupButton.setEnabled(true);
         }

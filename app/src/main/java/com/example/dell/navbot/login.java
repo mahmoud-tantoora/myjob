@@ -62,10 +62,13 @@ public class login extends AppCompatActivity {
                                 JSONObject jsonObject = new JSONObject(response);
                                 String  success = jsonObject.getString("response");
                                 if(!success.equals("ER"))
-                                {
-                                    Toast.makeText(getApplicationContext(),"Welcome",Toast.LENGTH_SHORT).show();
+                                {    String  idworker = jsonObject.getString("idworker");
+                                    String  idcompany = jsonObject.getString("idcompany");
+                                    Toast.makeText(getApplicationContext(),"Welcome" + idworker +" "+idcompany,Toast.LENGTH_SHORT).show();
                                     Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                      intent.putExtra("id_email",success);
+                                    intent.putExtra("id_email",success);
+                                    intent.putExtra("idworker",idworker);
+                                    intent.putExtra("idcompany",idcompany);
                                     startActivity(intent);
 
                                 }else {Toast.makeText(getApplicationContext(),"The Information Not Correct",Toast.LENGTH_SHORT).show();}
@@ -186,8 +189,8 @@ public class login extends AppCompatActivity {
                 _emailText.setError(null);
             }
 
-            if (password.isEmpty() || password.length() < 10 || password.length() > 40) {
-                _passwordText.setError("between 10 and 40 alphanumeric characters");
+            if (password.isEmpty() || password.length() < 8 || password.length() > 40) {
+                _passwordText.setError("between 8 and 40 alphanumeric characters");
                 valid = false;
             } else {
                 _passwordText.setError(null);

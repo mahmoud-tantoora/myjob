@@ -22,6 +22,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.TextView;
@@ -61,9 +63,11 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout mTabLayout;
     private String id_email = "";
+    private String idworker = "";
+    private String idcompany = "";
     ///////////////////////
     TextView email,phone,work,address,study,name_profile;
-
+    ImageView image_profile;
     ListView qualification;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +77,8 @@ public class MainActivity extends AppCompatActivity {
         overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);*/
         Intent i = getIntent();
         id_email = i.getStringExtra("id_email");
+        idworker = i.getStringExtra("idworker");
+        idcompany = i.getStringExtra("idcompany");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         mFragmentAdapter = new MyPagerAdapter(getSupportFragmentManager());
@@ -134,7 +140,7 @@ public class MainActivity extends AppCompatActivity {
                                              //   Adapter adapter = new Adapter(MainActivity.this,arrayList_opp);
                                              //   recyclerView.setAdapter(adapter);
                                              recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this);
+                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany);
                                              recyclerView.setAdapter(myAdapter);
                                              recyclerView.setItemAnimator(new DefaultItemAnimator());
                                          } catch (JSONException e) {
@@ -208,6 +214,57 @@ public class MainActivity extends AppCompatActivity {
                          requestQueue.add(stringRequest);
 
 
+
+                         ///          get all qualification
+
+                         String Urlqual = "http://my-app-ammar.000webhostapp.com/get_qualification.php";
+                         com.android.volley.toolbox.StringRequest stringRequestqual = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlqual, new Response.Listener<String>() {
+                             @Override
+                             public void onResponse(String response) {
+                                 try {
+                                     ArrayList<String> values = new ArrayList<String>();
+                                     JSONArray jsonArray = new JSONArray(response);
+                                     for (int i = 0; i < jsonArray.length(); i++) {
+                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                         values.add(jsonObject.getString("name_qualification"));
+                                     }
+                                     ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1, values);
+
+                                     qualification.setAdapter(arrayAdapter);
+
+                                 }catch (Exception e)
+                                 {
+                                     Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                                 }
+
+                             }
+
+
+
+
+                         }, new Response.ErrorListener() {
+                             @Override
+                             public void onErrorResponse(VolleyError error) {
+                                 Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+                             }
+                         }){
+                             @Override
+                             protected Map<String, String> getParams() {
+                                 Map<String,String> params = new java.util.HashMap<>();
+
+                                 params.put("id_email",id_email);
+
+                                 return params;
+                             }
+                         };
+
+
+                         RequestQueue requestQueuequal = Volley.newRequestQueue(getApplicationContext());
+                         requestQueuequal.add(stringRequestqual);
+
+
+
+
                      }
                      else  if(mViewPager.getCurrentItem()==2)
                      {
@@ -271,7 +328,7 @@ public class MainActivity extends AppCompatActivity {
                                              //   Adapter adapter = new Adapter(MainActivity.this,arrayList_opp);
                                              //   recyclerView.setAdapter(adapter);
                                              recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this);
+                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany);
                                              recyclerView.setAdapter(myAdapter);
                                              recyclerView.setItemAnimator(new DefaultItemAnimator());
                                          } catch (JSONException e) {
@@ -342,7 +399,57 @@ public class MainActivity extends AppCompatActivity {
                              }
                          };
                          RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                         requestQueue.add(stringRequest); }
+                         requestQueue.add(stringRequest);
+
+                     ///          get all qualification
+
+                     String Urlqual = "http://my-app-ammar.000webhostapp.com/get_qualification.php";
+                     com.android.volley.toolbox.StringRequest stringRequestqual = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlqual, new Response.Listener<String>() {
+                         @Override
+                         public void onResponse(String response) {
+                             try {
+                                 ArrayList<String> values = new ArrayList<String>();
+                                 JSONArray jsonArray = new JSONArray(response);
+                                 for (int i = 0; i < jsonArray.length(); i++) {
+                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                     values.add(jsonObject.getString("name_qualification"));
+                                 }
+                                 ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(getApplicationContext(),android.R.layout.simple_list_item_1, values);
+
+                                 qualification.setAdapter(arrayAdapter);
+
+                             }catch (Exception e)
+                             {
+                                 Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                             }
+
+                         }
+
+
+
+
+                     }, new Response.ErrorListener() {
+                         @Override
+                         public void onErrorResponse(VolleyError error) {
+                             Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+                         }
+                     }){
+                         @Override
+                         protected Map<String, String> getParams() {
+                             Map<String,String> params = new java.util.HashMap<>();
+
+                             params.put("id_email",id_email);
+
+                             return params;
+                         }
+                     };
+
+
+                     RequestQueue requestQueuequal = Volley.newRequestQueue(getApplicationContext());
+                     requestQueuequal.add(stringRequestqual);
+
+
+                 }
                  else  if(mViewPager.getCurrentItem()==2)
                  {
                      RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
@@ -438,7 +545,7 @@ public class MainActivity extends AppCompatActivity {
                                     items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a);
                                 }
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                MyAdapter myAdapter=new MyAdapter(items,MainActivity.this);
+                                MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany);
                                 recyclerView.setAdapter(myAdapter);
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                             } catch (JSONException e) {
@@ -624,29 +731,53 @@ public class MainActivity extends AppCompatActivity {
     public void groups(MenuItem item) {
 
         mViewPager.setCurrentItem(0);
-        RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler);
-        Itemdata_profile itemdata_pro[]={
-                new Itemdata_profile("Mahmoud Tantora","5","enginring software",R.drawable.a),
-                new Itemdata_profile("Ammar Kiali","4","enginring software",R.drawable.s),
-                new Itemdata_profile("Mohammad Ali","7","enginring software",R.drawable.c),
-                new Itemdata_profile("Ali Mahmoud","9","enginring software",R.drawable.d),
-                new Itemdata_profile("Ahmad Saeed","3","enginring software",R.drawable.a),
-                new Itemdata_profile("Zaeed Al_Ahmad","2","enginring software",R.drawable.b),
-                new Itemdata_profile("Abo Baker","34","enginring software",R.drawable.c),
-                new Itemdata_profile("Abo Zaeed","54","enginring software",R.drawable.d),
-                new Itemdata_profile("Mohmmad Kialy","22","enginring software",R.drawable.a),
-                new Itemdata_profile("Khalid Al_Yousf","11","enginring software",R.drawable.b),
-                new Itemdata_profile("Maohmmad Al_Aliway","23","enginring software",R.drawable.c),
-                new Itemdata_profile("Diaa Omar","Syria","34 ",R.drawable.d),
-                new Itemdata_profile("Abd Al_kareem","Syria","34 ",R.drawable.s)
-        };
-        //new GridLayoutManager(this,2)
-        recyclerView.setLayoutManager(new GridLayoutManager(this,2));
-        My_Adapter_Profile myAdapter=new My_Adapter_Profile(itemdata_pro,MainActivity.this,true);
-        recyclerView.setAdapter(myAdapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
-        dl.closeDrawers();
-        dl.animate();
+        try {
+            final RecyclerView recyclerView = (RecyclerView) findViewById(R.id.list_recycler);
+            recyclerView.setHasFixedSize(true);
+
+            requestQueue = Volley.newRequestQueue(getApplicationContext());
+
+
+            String url = "http://my-app-ammar.000webhostapp.com/getall_group.php";
+            JsonObjectRequest request = new JsonObjectRequest(Request.Method.GET, url, null,
+                    new Response.Listener<JSONObject>() {
+                        @RequiresApi(api = Build.VERSION_CODES.KITKAT)
+                        @Override
+                        public void onResponse(JSONObject response) {
+                            try {
+
+                                JSONArray jsonArray = response.getJSONArray("sss");
+                                Itemdata_profile[] items = new Itemdata_profile[jsonArray.length()];
+                                for (int i = 0; i < jsonArray.length(); i++) {
+                                    JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                    String name = jsonObject.getString("name");
+                                    String describtion = jsonObject.getString("describtion");
+                                    String count = jsonObject.getString("idcount");
+                                    items[i] = new Itemdata_profile(name, describtion, count, R.drawable.a);
+                                }
+                                //[{"name":"PVM","describtion":"work in building","idcount":"3"}
+
+                                recyclerView.setLayoutManager(new GridLayoutManager(getApplicationContext(), 2));
+                                My_Adapter_Profile myAdapter = new My_Adapter_Profile(items, MainActivity.this, false);
+                                recyclerView.setAdapter(myAdapter);
+                                recyclerView.setItemAnimator(new DefaultItemAnimator());
+                            } catch (JSONException e) {
+                                Toast.makeText(getApplicationContext(), "something  is error", Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(getApplicationContext(), "No Internet Connection", Toast.LENGTH_LONG).show();
+
+                }
+            });
+            requestQueue.add(request);
+
+            dl.closeDrawers();
+            dl.animate();
+        }catch (Exception e){}
+
     }
 
     public void log_out(MenuItem item) {
