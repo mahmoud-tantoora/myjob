@@ -37,6 +37,7 @@ public class MyAdpter_notify extends RecyclerView.Adapter<RecyclerView.ViewHolde
         MyAdpter_notify.MyViewHolder_notify myviewHolder_notify = (MyAdpter_notify.MyViewHolder_notify) holder;
         myviewHolder_notify.title.setText(itemdata_notify[position].title);
         myviewHolder_notify.desc.setText(itemdata_notify[position].desc);
+        myviewHolder_notify.namejob.setText(itemdata_notify[position].namejob);
     }
 
     @Override
@@ -46,12 +47,13 @@ public class MyAdpter_notify extends RecyclerView.Adapter<RecyclerView.ViewHolde
     }
 
     public class MyViewHolder_notify extends RecyclerView.ViewHolder {
-        public TextView title, desc;
+        public TextView title, desc,namejob;
 
         public MyViewHolder_notify(View itemView) {
             super(itemView);
             title = (TextView) itemView.findViewById(R.id.title_notify);
             desc = (TextView) itemView.findViewById(R.id.desc_notify);
+            namejob = (TextView) itemView.findViewById(R.id.namejob_notify);
         }
     }
 }

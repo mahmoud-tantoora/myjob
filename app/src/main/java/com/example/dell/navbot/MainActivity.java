@@ -269,9 +269,65 @@ public class MainActivity extends AppCompatActivity {
                      }
                      else  if(mViewPager.getCurrentItem()==2)
                      {
-                         RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
-                         Itemdata_notify itemdata_noty[]={
-                                 new Itemdata_notify("Mahmoud Tantora","enginring software"),
+                         final RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
+                          String Urlqual = "http://my-app-ammar.000webhostapp.com/get_comment.php";
+                         com.android.volley.toolbox.StringRequest stringRequestqual = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlqual, new Response.Listener<String>() {
+                             @Override
+                             public void onResponse(String response) {
+                                 try {
+
+                                     JSONArray jsonArray = new JSONArray(response);
+                                     Itemdata_notify []items = new  Itemdata_notify[jsonArray.length()];
+                                     for (int i = 0; i < jsonArray.length(); i++) {
+                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                        String comm = jsonObject.getString("comment");
+                                         String nameworker = jsonObject.getString("name_worker");
+                                         String jname = jsonObject.getString("job_name");
+
+                                         items[i] = new Itemdata_notify("Comment From "+nameworker,comm,"On Post "+jname);
+
+                                     }
+                                     recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                                     MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
+                                     recyclerView.setAdapter(myAdapter);
+                                     recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+
+
+                                 }catch (Exception e)
+                                 {
+                                     Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                                 }
+
+                             }
+
+                         }, new Response.ErrorListener() {
+                             @Override
+                             public void onErrorResponse(VolleyError error) {
+                                 Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+                             }
+                         }){
+                             @Override
+                             protected Map<String, String> getParams() {
+                                 Map<String,String> params = new java.util.HashMap<>();
+
+                                 params.put("idcompany",idcompany);
+
+                                 return params;
+                             }
+                         };
+
+
+                         RequestQueue requestQueuequal = Volley.newRequestQueue(getApplicationContext());
+                         requestQueuequal.add(stringRequestqual);
+
+
+
+
+
+                        /* Itemdata_notify itemdata_noty[]={
+                                 new Itemdata_notify("Mahmoud Tantora","enginring software","dasdasd"),
                                  new Itemdata_notify("Ammar Kiali","enginring software"),
                                  new Itemdata_notify("Mohammad Ali","enginring software"),
                                  new Itemdata_notify("Ali Mahmoud","enginring software"),
@@ -284,11 +340,13 @@ public class MainActivity extends AppCompatActivity {
                                  new Itemdata_notify("Maohmmad Al_Aliway","enginring software"),
                                  new Itemdata_notify("Abd Al_kareem","Syria")
                          };
+
                          //new GridLayoutManager(this,2)
                          recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
                          MyAdpter_notify myAdapter=new MyAdpter_notify(itemdata_noty,MainActivity.this);
                          recyclerView.setAdapter(myAdapter);
                          recyclerView.setItemAnimator(new DefaultItemAnimator());
+                         */
                          dl.closeDrawers();
                          dl.animate();
                      }
@@ -370,7 +428,7 @@ public class MainActivity extends AppCompatActivity {
                                      JSONObject jsonObject = new JSONObject(response);
 
                                      email.setText(jsonObject.getString("email"));
-                                     name_profile.setText(jsonObject.getString("first_name") + jsonObject.getString("last_name"));
+                                     name_profile.setText(jsonObject.getString("first_name") +" "+ jsonObject.getString("last_name"));
                                      phone.setText(jsonObject.getString("phone"));
                                      address.setText(jsonObject.getString("address"));
                                      work.setText(jsonObject.getString("type_work"));
@@ -452,8 +510,61 @@ public class MainActivity extends AppCompatActivity {
 
                  }
                  else  if(mViewPager.getCurrentItem()==2)
-                 {
-                     RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
+                 {             final RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
+                     String Urlqual = "http://my-app-ammar.000webhostapp.com/get_comment.php";
+                     com.android.volley.toolbox.StringRequest stringRequestqual = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlqual, new Response.Listener<String>() {
+                         @Override
+                         public void onResponse(String response) {
+                             try {
+
+                                 JSONArray jsonArray = new JSONArray(response);
+                                 Itemdata_notify []items = new  Itemdata_notify[jsonArray.length()];
+                                 for (int i = 0; i < jsonArray.length(); i++) {
+                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                     String comm = jsonObject.getString("comment");
+                                     String nameworker = jsonObject.getString("name_worker");
+                                     String jname = jsonObject.getString("job_name");
+
+                                     items[i] = new Itemdata_notify("Comment From "+nameworker,comm,"On Post "+jname);
+
+                                 }
+                                 recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                                 MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
+                                 recyclerView.setAdapter(myAdapter);
+                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
+
+
+
+
+                             }catch (Exception e)
+                             {
+                                 Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                             }
+
+                         }
+
+                     }, new Response.ErrorListener() {
+                         @Override
+                         public void onErrorResponse(VolleyError error) {
+                             Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+                         }
+                     }){
+                         @Override
+                         protected Map<String, String> getParams() {
+                             Map<String,String> params = new java.util.HashMap<>();
+
+                             params.put("idcompany",idcompany);
+
+                             return params;
+                         }
+                     };
+
+
+                     RequestQueue requestQueuequal = Volley.newRequestQueue(getApplicationContext());
+                     requestQueuequal.add(stringRequestqual);
+
+
+                    /* RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
                      Itemdata_notify itemdata_noty[]={
                              new Itemdata_notify("Mahmoud Tantora","enginring software"),
                              new Itemdata_notify("Ammar Kiali","enginring software"),
@@ -473,6 +584,7 @@ public class MainActivity extends AppCompatActivity {
                      MyAdpter_notify myAdapter=new MyAdpter_notify(itemdata_noty,MainActivity.this);
                      recyclerView.setAdapter(myAdapter);
                      recyclerView.setItemAnimator(new DefaultItemAnimator());
+                     */
                      dl.closeDrawers();
                      dl.animate();
                  }

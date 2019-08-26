@@ -36,6 +36,14 @@
                     android:padding="10dp"
                     android:text="num_worker"
                     android:textSize="16dp" />
+                <TextView
+                    android:id="@+id/namejob_notify"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="left"
+                    android:padding="10dp"
+                    android:text="num_worker"
+                    android:textSize="16dp" />
 
             </LinearLayout>
 

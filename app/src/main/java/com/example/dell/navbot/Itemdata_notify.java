@@ -4,10 +4,12 @@ public class Itemdata_notify {
 
    public String title;
    public String desc;
-   public Itemdata_notify(String t,String d)
+   public String namejob;
+   public Itemdata_notify(String t,String d,String namejob)
    {
        this.title=t;
        this.desc=d;
+       this.namejob=namejob;
    }
 
 }
