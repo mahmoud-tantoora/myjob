@@ -136,6 +136,7 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     public void onClick(View v) {
                         if(!idwork.equals("null"))
                         { Intent intent=new Intent(context,comment.class);
+                            intent.putExtra("id_email",idemail);
                             intent.putExtra("idworker",idwork);
                             intent.putExtra("idcompany",idcomp);
                             intent.putExtra("idcompany_recv",itemdata[position].id_company.toString());

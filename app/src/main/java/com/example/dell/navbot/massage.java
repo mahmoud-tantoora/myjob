@@ -52,7 +52,7 @@ public class massage extends AppCompatActivity {
                     JSONObject jsonObject = new JSONObject(response);
 
 
-                    name.setText(jsonObject.getString("first_name") + jsonObject.getString("last_name"));
+                    name.setText(jsonObject.getString("first_name") +" "+ jsonObject.getString("last_name"));
                     study.setText(jsonObject.getString("studying"));
 
 

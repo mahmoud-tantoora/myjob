@@ -31,7 +31,8 @@ public class comment extends AppCompatActivity {
     //@BindView(R.id.comment_send) Button Send;
    EditText comm;
     Button send;
-    String id_worker,id_company,id_compant_recv,jobname;
+    String id_worker,id_company,id_compant_recv,jobname,id_email;
+    String name_worker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,11 +43,48 @@ public class comment extends AppCompatActivity {
       //  Toast.makeText(getApplicationContext(),"iam here ",Toast.LENGTH_SHORT).show();
 
          Intent in = getIntent();
+        id_email = in.getStringExtra("id_email");
          id_worker = in.getStringExtra("idworker");
         id_company = in.getStringExtra("idcompany");
        id_compant_recv = in.getStringExtra("idcompany_recv");
         jobname = in.getStringExtra("name_job");
+        String Url = "http://my-app-ammar.000webhostapp.com/get_profile.php";
+        com.android.volley.toolbox.StringRequest stringRequest = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+            //   @SuppressLint("SetTextI18n")
+            @Override
+            public void onResponse(String response) {
+                try {
+                    JSONObject jsonObject = new JSONObject(response);
 
+
+                    name_worker = jsonObject.getString("first_name") +" "+ jsonObject.getString("last_name");
+
+
+
+
+                }catch (Exception e)
+                {
+                    Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() {
+                Map<String,String> params = new java.util.HashMap<>();
+
+                params.put("id_email",id_email);
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
     }
     public void btn_send(View view)
     {
@@ -83,7 +121,7 @@ public class comment extends AppCompatActivity {
 
                 params.put("comment",comm.getText().toString());
                 params.put("id_worker",id_worker);
-              //  params.put("id_company",id_company);
+                params.put("name_worker",name_worker);
                 params.put("id_company_recv",id_compant_recv);
                 params.put("job_name",jobname);
 
