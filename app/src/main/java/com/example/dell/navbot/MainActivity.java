@@ -269,9 +269,11 @@ public class MainActivity extends AppCompatActivity {
                      }
                      else  if(mViewPager.getCurrentItem()==2)
                      {
+                         final int[] t = {0};
+                         final Itemdata_notify[][] itemss = new Itemdata_notify[1][100];
                          final RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
-                          String Urlqual = "http://my-app-ammar.000webhostapp.com/get_comment.php";
-                         com.android.volley.toolbox.StringRequest stringRequestqual = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlqual, new Response.Listener<String>() {
+                          String Urlcomment = "http://my-app-ammar.000webhostapp.com/get_comment.php";
+                         com.android.volley.toolbox.StringRequest stringRequestcomment = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlcomment, new Response.Listener<String>() {
                              @Override
                              public void onResponse(String response) {
                                  try {
@@ -284,11 +286,74 @@ public class MainActivity extends AppCompatActivity {
                                          String nameworker = jsonObject.getString("name_worker");
                                          String jname = jsonObject.getString("job_name");
 
-                                         items[i] = new Itemdata_notify("Comment From "+nameworker,comm,"On Post "+jname);
+                                         items[t[0]] = new Itemdata_notify("Comment From "+nameworker,comm,"On Post "+jname);
+                                         itemss[0][t[0]]=items[t[0]];
+                                         t[0]++;
+                                     }
+
+                                    /* recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                                     MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
+                                     recyclerView.setAdapter(myAdapter);
+                                     recyclerView.setItemAnimator(new DefaultItemAnimator());
+*/
+
+
+
+                                 }catch (Exception e)
+                                 {
+                                     Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                                 }
+
+                             }
+
+                         }, new Response.ErrorListener() {
+                             @Override
+                             public void onErrorResponse(VolleyError error) {
+                                 Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+                             }
+                         }){
+                             @Override
+                             protected Map<String, String> getParams() {
+                                 Map<String,String> params = new java.util.HashMap<>();
+
+                                 params.put("idcompany",idcompany);
+
+                                 return params;
+                             }
+                         };
+
+
+                         RequestQueue requestQueuecomment = Volley.newRequestQueue(getApplicationContext());
+                         requestQueuecomment.add(stringRequestcomment);
+
+                         String Urlorder = "http://my-app-ammar.000webhostapp.com/get_order.php";
+                         com.android.volley.toolbox.StringRequest stringRequestorder = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlorder, new Response.Listener<String>() {
+                             @Override
+                             public void onResponse(String response) {
+                                 try {
+
+                                     JSONArray jsonArray = new JSONArray(response);
+                                     Itemdata_notify []items = new  Itemdata_notify[jsonArray.length()];
+                                     for (int i = 0; i < jsonArray.length(); i++) {
+                                         JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                         String details = jsonObject.getString("details");
+                                         String nameworker = jsonObject.getString("name_worker");
+                                         String st_worker = jsonObject.getString("study_worker");
+                                         String jname = jsonObject.getString("job_name");
+
+                                         items[i] = new Itemdata_notify("Order From "+nameworker,details+" , he is study "+st_worker,"For Post "+jname);
+                                         itemss[0][t[0]]=items[i];
+                                         t[0]++;
+                                     }
+                                     Itemdata_notify []items2 = new Itemdata_notify[t[0]];
+                                     for(int j=0;j<t[0];j++)
+                                     {
+                                         items2[j] = itemss[0][j];
+
 
                                      }
                                      recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                                     MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
+                                     MyAdpter_notify myAdapter=new MyAdpter_notify(items2,MainActivity.this);
                                      recyclerView.setAdapter(myAdapter);
                                      recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -319,10 +384,8 @@ public class MainActivity extends AppCompatActivity {
                          };
 
 
-                         RequestQueue requestQueuequal = Volley.newRequestQueue(getApplicationContext());
-                         requestQueuequal.add(stringRequestqual);
-
-
+                         RequestQueue requestQueueorder = Volley.newRequestQueue(getApplicationContext());
+                         requestQueueorder.add(stringRequestorder);
 
 
 
@@ -510,9 +573,12 @@ public class MainActivity extends AppCompatActivity {
 
                  }
                  else  if(mViewPager.getCurrentItem()==2)
-                 {             final RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
-                     String Urlqual = "http://my-app-ammar.000webhostapp.com/get_comment.php";
-                     com.android.volley.toolbox.StringRequest stringRequestqual = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlqual, new Response.Listener<String>() {
+                 {
+                     final int[] t = {0};
+                     final Itemdata_notify[][] itemss = new Itemdata_notify[1][100];
+                     final RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
+                     String Urlcomment = "http://my-app-ammar.000webhostapp.com/get_comment.php";
+                     com.android.volley.toolbox.StringRequest stringRequestcomment = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlcomment, new Response.Listener<String>() {
                          @Override
                          public void onResponse(String response) {
                              try {
@@ -525,11 +591,74 @@ public class MainActivity extends AppCompatActivity {
                                      String nameworker = jsonObject.getString("name_worker");
                                      String jname = jsonObject.getString("job_name");
 
-                                     items[i] = new Itemdata_notify("Comment From "+nameworker,comm,"On Post "+jname);
+                                     items[t[0]] = new Itemdata_notify("Comment From "+nameworker,comm,"On Post "+jname);
+                                     itemss[0][t[0]]=items[t[0]];
+                                     t[0]++;
+                                 }
+
+                                    /* recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
+                                     MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
+                                     recyclerView.setAdapter(myAdapter);
+                                     recyclerView.setItemAnimator(new DefaultItemAnimator());
+*/
+
+
+
+                             }catch (Exception e)
+                             {
+                                 Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                             }
+
+                         }
+
+                     }, new Response.ErrorListener() {
+                         @Override
+                         public void onErrorResponse(VolleyError error) {
+                             Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+                         }
+                     }){
+                         @Override
+                         protected Map<String, String> getParams() {
+                             Map<String,String> params = new java.util.HashMap<>();
+
+                             params.put("idcompany",idcompany);
+
+                             return params;
+                         }
+                     };
+
+
+                     RequestQueue requestQueuecomment = Volley.newRequestQueue(getApplicationContext());
+                     requestQueuecomment.add(stringRequestcomment);
+
+                     String Urlorder = "http://my-app-ammar.000webhostapp.com/get_order.php";
+                     com.android.volley.toolbox.StringRequest stringRequestorder = new com.android.volley.toolbox.StringRequest(Request.Method.POST, Urlorder, new Response.Listener<String>() {
+                         @Override
+                         public void onResponse(String response) {
+                             try {
+
+                                 JSONArray jsonArray = new JSONArray(response);
+                                 Itemdata_notify []items = new  Itemdata_notify[jsonArray.length()];
+                                 for (int i = 0; i < jsonArray.length(); i++) {
+                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
+                                     String details = jsonObject.getString("details");
+                                     String nameworker = jsonObject.getString("name_worker");
+                                     String st_worker = jsonObject.getString("study_worker");
+                                     String jname = jsonObject.getString("job_name");
+
+                                     items[i] = new Itemdata_notify("Order From "+nameworker,details+" , he is study "+st_worker,"For Post "+jname);
+                                     itemss[0][t[0]]=items[i];
+                                     t[0]++;
+                                 }
+                                 Itemdata_notify []items2 = new Itemdata_notify[t[0]];
+                                 for(int j=0;j<t[0];j++)
+                                 {
+                                     items2[j] = itemss[0][j];
+
 
                                  }
                                  recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                                 MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
+                                 MyAdpter_notify myAdapter=new MyAdpter_notify(items2,MainActivity.this);
                                  recyclerView.setAdapter(myAdapter);
                                  recyclerView.setItemAnimator(new DefaultItemAnimator());
 
@@ -560,9 +689,8 @@ public class MainActivity extends AppCompatActivity {
                      };
 
 
-                     RequestQueue requestQueuequal = Volley.newRequestQueue(getApplicationContext());
-                     requestQueuequal.add(stringRequestqual);
-
+                     RequestQueue requestQueueorder = Volley.newRequestQueue(getApplicationContext());
+                     requestQueueorder.add(stringRequestorder);
 
                     /* RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
                      Itemdata_notify itemdata_noty[]={

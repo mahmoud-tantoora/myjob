@@ -5,12 +5,12 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/placeholder"
-        >
+        android:id="@+id/placeholder" >
 
         <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:id="@+id/list_recycler_notify"
             android:layout_height="match_parent"/>
+
     </FrameLayout>
 </android.support.constraint.ConstraintLayout>

@@ -16,7 +16,7 @@ public class MyAdpter_notify extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public Context context;
     public Itemdata_notify[] itemdata_notify;
 
-    public MyAdpter_notify(Itemdata_notify[] itemdata_notify, Context context) {
+    public MyAdpter_notify(final Itemdata_notify[] itemdata_notify, Context context) {
 
         this.context = context;
         this.itemdata_notify = itemdata_notify;
