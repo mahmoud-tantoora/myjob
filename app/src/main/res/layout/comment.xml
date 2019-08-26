@@ -11,6 +11,7 @@
         android:orientation="vertical"
         android:layout_height="wrap_content">
         <EditText
+            android:id="@+id/comment_text"
             android:layout_width="match_parent"
             android:layout_height="200dp"
             android:background="#fff"
@@ -19,6 +20,7 @@
             android:textColor="#000"
             android:hint="write your comment"/>
         <Button
+            android:id="@+id/comment_send"
             android:layout_marginTop="5dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

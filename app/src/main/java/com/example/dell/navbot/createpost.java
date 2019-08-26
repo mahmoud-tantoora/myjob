@@ -52,7 +52,7 @@ public class createpost extends AppCompatActivity {
 
     public void up_post(View view)
     {
-      //write here your code my friend
+
         String Url = "http://my-app-ammar.000webhostapp.com/insert_post.php";
         final String jobsname = jobname.getText().toString().trim();
         final String describtion = desc.getText().toString().trim();

@@ -18,15 +18,16 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     public Itemdata[] itemdata;
     public Context context;
     public int type;
-    public String idwork,idcomp;
+    public String idwork,idcomp,idCompany_recv;
 
-    public MyAdapter(Itemdata[] itemdata,Context context,String idworker,String idcompany)
+    public MyAdapter(Itemdata[] itemdata,Context context,String idworker,String idcompany,String idCompany)
     {
         this.context=context;
         this.itemdata=itemdata;
         this.itemdata[0]=null;
         idwork = idworker;
         idcomp = idcompany;
+        idCompany_recv=idCompany;
     }
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -58,9 +59,13 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                 @Override
                 public void onClick(View v) {
                     // create post here
-                    Intent intent=new Intent(context,createpost.class);
+                    if(!idcomp.equals("null"))
+                    { Intent intent=new Intent(context,createpost.class);
                     intent.putExtra("idcompany",idcomp);
-                    context.startActivity(intent);
+                    context.startActivity(intent);}
+                    else{
+                        Toast.makeText(context, "Please this option is available for companies only", Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -119,6 +124,10 @@ public class MyAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
                     @Override
                     public void onClick(View v) {
                         Intent intent=new Intent(context,comment.class);
+                        intent.putExtra("idworker",idwork);
+                        intent.putExtra("idcompany",idcomp);
+                        intent.putExtra("idcompany_recv",idCompany_recv);
+                        intent.putExtra("name_job",itemdata[position].detail.toString());
                         context.startActivity(intent);
                     }
                 });

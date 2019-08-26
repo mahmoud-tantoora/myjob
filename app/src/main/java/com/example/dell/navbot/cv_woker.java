@@ -47,6 +47,9 @@ public class cv_woker extends AppCompatActivity {
         create_cv=(Button)findViewById(R.id.create_cv);
         profileimage=(ImageView)findViewById(R.id.profileimage);
         String id_email = getIntent().getStringExtra("id_email");
+        String idworker = getIntent().getStringExtra("idworker");
+        String idcompany = getIntent().getStringExtra("idcompany");
+
 
     }
 

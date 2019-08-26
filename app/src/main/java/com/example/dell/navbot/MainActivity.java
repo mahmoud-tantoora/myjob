@@ -64,7 +64,7 @@ public class MainActivity extends AppCompatActivity {
     private TabLayout mTabLayout;
     private String id_email = "";
     private String idworker = "";
-    private String idcompany = "";
+    private String idcompany = "",idCompany="";
     ///////////////////////
     TextView email,phone,work,address,study,name_profile;
     ImageView image_profile;
@@ -135,12 +135,13 @@ public class MainActivity extends AppCompatActivity {
                                                  String jopdesc = jsonObject.getString("jop_describtion");
                                                  String numberworker = jsonObject.getString("number_workers");
                                                  String namecompany = jsonObject.getString("name");
+                                                  idCompany = jsonObject.getString("id_company");
                                                  items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a);
                                              }
                                              //   Adapter adapter = new Adapter(MainActivity.this,arrayList_opp);
                                              //   recyclerView.setAdapter(adapter);
                                              recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany);
+                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,idCompany);
                                              recyclerView.setAdapter(myAdapter);
                                              recyclerView.setItemAnimator(new DefaultItemAnimator());
                                          } catch (JSONException e) {
@@ -328,7 +329,7 @@ public class MainActivity extends AppCompatActivity {
                                              //   Adapter adapter = new Adapter(MainActivity.this,arrayList_opp);
                                              //   recyclerView.setAdapter(adapter);
                                              recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany);
+                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,idCompany);
                                              recyclerView.setAdapter(myAdapter);
                                              recyclerView.setItemAnimator(new DefaultItemAnimator());
                                          } catch (JSONException e) {
@@ -545,7 +546,7 @@ public class MainActivity extends AppCompatActivity {
                                     items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a);
                                 }
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany);
+                                MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,idCompany);
                                 recyclerView.setAdapter(myAdapter);
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                             } catch (JSONException e) {
