@@ -136,12 +136,12 @@ public class MainActivity extends AppCompatActivity {
                                                  String numberworker = jsonObject.getString("number_workers");
                                                  String namecompany = jsonObject.getString("name");
                                                   idCompany = jsonObject.getString("id_company");
-                                                 items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a);
+                                                 items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a,idCompany);
                                              }
                                              //   Adapter adapter = new Adapter(MainActivity.this,arrayList_opp);
                                              //   recyclerView.setAdapter(adapter);
                                              recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,idCompany);
+                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,id_email);
                                              recyclerView.setAdapter(myAdapter);
                                              recyclerView.setItemAnimator(new DefaultItemAnimator());
                                          } catch (JSONException e) {
@@ -324,12 +324,12 @@ public class MainActivity extends AppCompatActivity {
                                                  String jopdesc = jsonObject.getString("jop_describtion");
                                                  String numberworker = jsonObject.getString("number_workers");
                                                  String namecompany = jsonObject.getString("name");
-                                                 items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a);
+                                                 items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a,idCompany);
                                              }
                                              //   Adapter adapter = new Adapter(MainActivity.this,arrayList_opp);
                                              //   recyclerView.setAdapter(adapter);
                                              recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,idCompany);
+                                             MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,id_email);
                                              recyclerView.setAdapter(myAdapter);
                                              recyclerView.setItemAnimator(new DefaultItemAnimator());
                                          } catch (JSONException e) {
@@ -543,10 +543,10 @@ public class MainActivity extends AppCompatActivity {
                                     String jopdesc = jsonObject.getString("jop_describtion");
                                     String numberworker = jsonObject.getString("number_workers");
                                     String namecompany = jsonObject.getString("name");
-                                    items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a);
+                                    items[i] = new Itemdata(namecompany,jopname, jopdesc,numberworker,R.drawable.a,idCompany);
                                 }
                                 recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                                MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,idCompany);
+                                MyAdapter myAdapter=new MyAdapter(items,MainActivity.this,idworker,idcompany,id_email);
                                 recyclerView.setAdapter(myAdapter);
                                 recyclerView.setItemAnimator(new DefaultItemAnimator());
                             } catch (JSONException e) {

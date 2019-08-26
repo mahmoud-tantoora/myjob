@@ -2,10 +2,12 @@ package com.example.dell.navbot;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,81 +27,75 @@ import java.util.Map;
 import butterknife.BindView;
 
 public class comment extends AppCompatActivity {
-    EditText comment = (EditText) findViewById(R.id.comment_text);
-    @BindView(R.id.comment_send) Button Send;
+   // EditText comment = (EditText) findViewById(R.id.comment_text);
+    //@BindView(R.id.comment_send) Button Send;
+   EditText comm;
+    Button send;
+    String id_worker,id_company,id_compant_recv,jobname;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-       /* Intent intent = new Intent(getApplicationContext(), login.class);
-        startActivityForResult(intent, 1);
-        finish();
-        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);*/
         super.onCreate(savedInstanceState);
         setContentView(R.layout.comment);
-        Toast.makeText(getApplicationContext(),"iam here ",Toast.LENGTH_SHORT).show();
-        final String content_comment = comment.getText().toString();
+        comm=(EditText)findViewById(R.id.comment_text);
+        send=(Button) findViewById(R.id.comment_send);
+      //  Toast.makeText(getApplicationContext(),"iam here ",Toast.LENGTH_SHORT).show();
+
          Intent in = getIntent();
-         final String id_worker = in.getStringExtra("idworker");
-        final String id_company = in.getStringExtra("idcompany");
-        final String id_compant_recv = in.getStringExtra("idcompany_recv");
-        final String jobname = in.getStringExtra("name_job");
-
-
-        Send.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                String Url = "http://my-app-ammar.000webhostapp.com/insert_comment.php";
-                StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        try{
-                            JSONObject jsonObject = new JSONObject(response);
-                            String  success = jsonObject.getString("response");
-                            if(!success.equals("ER"))
-                            {
-                                Toast.makeText(getApplicationContext(),"Successfully",Toast.LENGTH_SHORT).show();
-                                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                startActivity(intent);
-
-                            }else {Toast.makeText(getApplicationContext(),"The Information Not Correct",Toast.LENGTH_SHORT).show();}
-
-                        }catch (Exception e)
-                        {
-                            Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
-                        }
-
-                    }
-                }, new Response.ErrorListener() {
-                    @Override
-                    public void onErrorResponse(VolleyError error) {
-                        Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
-                    }
-                }){
-                    @Override
-                    protected Map<String, String> getParams() throws AuthFailureError {
-                        Map<String,String> params = new HashMap<>();
-
-                        params.put("comment",content_comment);
-                        params.put("id_worker",id_worker);
-                        params.put("id_company",id_company);
-                        params.put("id_company_recv",id_compant_recv);
-                        params.put("job_name",jobname);
-
-
-                        return params;
-                    }
-                };
-                RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
-                requestQueue.add(stringRequest);
-            }
-        });
-
-
-
-
-
-
-
+         id_worker = in.getStringExtra("idworker");
+        id_company = in.getStringExtra("idcompany");
+       id_compant_recv = in.getStringExtra("idcompany_recv");
+        jobname = in.getStringExtra("name_job");
 
     }
+    public void btn_send(View view)
+    {
+        String Url = "http://my-app-ammar.000webhostapp.com/insert_comment.php";
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, Url, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                try{
+                    JSONObject jsonObject = new JSONObject(response);
+                    String  success = jsonObject.getString("response");
+                    if(!success.equals("ER"))
+                    {
+                        Toast.makeText(getApplicationContext(),"Successfully",Toast.LENGTH_SHORT).show();
+                        comm.setText("");
+
+
+                    }else {Toast.makeText(getApplicationContext(),"The Information Not Correct",Toast.LENGTH_SHORT).show();}
+
+                }catch (Exception e)
+                {
+                    Toast.makeText(getApplicationContext(),"something  is error",Toast.LENGTH_LONG).show();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"No Internet Connection",Toast.LENGTH_LONG).show();
+            }
+        }){
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String,String> params = new HashMap<>();
+
+                params.put("comment",comm.getText().toString());
+                params.put("id_worker",id_worker);
+              //  params.put("id_company",id_company);
+                params.put("id_company_recv",id_compant_recv);
+                params.put("job_name",jobname);
+
+
+                return params;
+            }
+        };
+        RequestQueue requestQueue = Volley.newRequestQueue(getApplicationContext());
+        requestQueue.add(stringRequest);
+    }
 }
+
+
+
+
