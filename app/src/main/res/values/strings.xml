@@ -15,7 +15,7 @@
     <string name="no_account_yet_create_one">No Account Yet ? Create One</string>
 
     <string name="Name">Name</string>
-    <string name="Adress">Adress</string>
+    <string name="Adress">Address</string>
     <string name="Email2">Email</string>
     <string name="mobile_number">Mobile Number</string>
     <string name="Password2">Password</string>
@@ -42,10 +42,11 @@
 
     <string name="First_Name">First_Name</string>
     <string name="Last_Name">Last_Name</string>
-    <string name="Nic_Name">Nic_Name</string>
-    <string name="Date">Date</string>
-    <string name="Staudy">Staudy</string>
-    <string name="Qualification">Qualification </string>
+    <string name="Country">Country</string>
+    <string name="Type_work">Work Type</string>
+    <string name="Time_work">Work Time</string>
+    <string name="Study">Study</string>
+    <string name="Qualification">Qualification</string>
     <string name="Create_cv">Create_cv</string>
 
     <string name="write_number_worker_needed">write number worker needed</string>

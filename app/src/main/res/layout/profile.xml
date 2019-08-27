@@ -168,7 +168,7 @@ android:orientation="vertical">
                             android:layout_gravity="center_vertical"
                             android:paddingLeft="20dp"
                             android:id="@+id/study_profile"
-                            android:text="@string/Staudy"
+                            android:text="@string/Study"
                             android:textColor="#59adff"
                             android:textStyle="bold" />
                     </LinearLayout>

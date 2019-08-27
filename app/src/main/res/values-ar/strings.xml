@@ -43,9 +43,10 @@
 
     <string name="First_Name">الاسم الاول</string>
     <string name="Last_Name">الاسم الاخير</string>
-    <string name="Nic_Name">اللقب</string>
-    <string name="Date">تاريخ الولادة</string>
-    <string name="Staudy">الدراسة</string>
+    <string name="Country">البلد</string>
+    <string name="Type_work">نوع العمل</string>
+    <string name="Time_work">وقت خبرة العمل</string>
+    <string name="Study">الدراسة</string>
     <string name="Qualification">الخبرات </string>
     <string name="Create_cv">انشاء الملف الشخصي</string>
 

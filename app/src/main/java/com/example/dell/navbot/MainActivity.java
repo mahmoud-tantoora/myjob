@@ -291,12 +291,6 @@ public class MainActivity extends AppCompatActivity {
                                          t[0]++;
                                      }
 
-                                    /* recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                                     MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
-                                     recyclerView.setAdapter(myAdapter);
-                                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-*/
-
 
 
                                  }catch (Exception e)
@@ -389,27 +383,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-                        /* Itemdata_notify itemdata_noty[]={
-                                 new Itemdata_notify("Mahmoud Tantora","enginring software","dasdasd"),
-                                 new Itemdata_notify("Ammar Kiali","enginring software"),
-                                 new Itemdata_notify("Mohammad Ali","enginring software"),
-                                 new Itemdata_notify("Ali Mahmoud","enginring software"),
-                                 new Itemdata_notify("Ahmad Saeed","enginring software"),
-                                 new Itemdata_notify("Zaeed Al_Ahmad","enginring software"),
-                                 new Itemdata_notify("Abo Baker","enginring software"),
-                                 new Itemdata_notify("Abo Zaeed","enginring software"),
-                                 new Itemdata_notify("Mohmmad Kialy","enginring software"),
-                                 new Itemdata_notify("Khalid Al_Yousf","enginring software"),
-                                 new Itemdata_notify("Maohmmad Al_Aliway","enginring software"),
-                                 new Itemdata_notify("Abd Al_kareem","Syria")
-                         };
 
-                         //new GridLayoutManager(this,2)
-                         recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                         MyAdpter_notify myAdapter=new MyAdpter_notify(itemdata_noty,MainActivity.this);
-                         recyclerView.setAdapter(myAdapter);
-                         recyclerView.setItemAnimator(new DefaultItemAnimator());
-                         */
                          dl.closeDrawers();
                          dl.animate();
                      }
@@ -596,11 +570,7 @@ public class MainActivity extends AppCompatActivity {
                                      t[0]++;
                                  }
 
-                                    /* recyclerView.setLayoutManager(new LinearLayoutManager(MainActivity.this));
-                                     MyAdpter_notify myAdapter=new MyAdpter_notify(items,MainActivity.this);
-                                     recyclerView.setAdapter(myAdapter);
-                                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-*/
+
 
 
 
@@ -692,27 +662,7 @@ public class MainActivity extends AppCompatActivity {
                      RequestQueue requestQueueorder = Volley.newRequestQueue(getApplicationContext());
                      requestQueueorder.add(stringRequestorder);
 
-                    /* RecyclerView recyclerView=(RecyclerView)findViewById(R.id.list_recycler_notify);
-                     Itemdata_notify itemdata_noty[]={
-                             new Itemdata_notify("Mahmoud Tantora","enginring software"),
-                             new Itemdata_notify("Ammar Kiali","enginring software"),
-                             new Itemdata_notify("Mohammad Ali","enginring software"),
-                             new Itemdata_notify("Ali Mahmoud","enginring software"),
-                             new Itemdata_notify("Ahmad Saeed","enginring software"),
-                             new Itemdata_notify("Zaeed Al_Ahmad","enginring software"),
-                             new Itemdata_notify("Abo Baker","enginring software"),
-                             new Itemdata_notify("Abo Zaeed","enginring software"),
-                             new Itemdata_notify("Mohmmad Kialy","enginring software"),
-                             new Itemdata_notify("Khalid Al_Yousf","enginring software"),
-                             new Itemdata_notify("Maohmmad Al_Aliway","enginring software"),
-                             new Itemdata_notify("Abd Al_kareem","Syria")
-                     };
-                     //new GridLayoutManager(this,2)
-                     recyclerView.setLayoutManager(new LinearLayoutManager(getApplicationContext()));
-                     MyAdpter_notify myAdapter=new MyAdpter_notify(itemdata_noty,MainActivity.this);
-                     recyclerView.setAdapter(myAdapter);
-                     recyclerView.setItemAnimator(new DefaultItemAnimator());
-                     */
+
                      dl.closeDrawers();
                      dl.animate();
                  }

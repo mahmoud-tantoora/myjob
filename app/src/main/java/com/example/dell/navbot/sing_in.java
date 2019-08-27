@@ -212,6 +212,7 @@ public class sing_in extends AppCompatActivity {
 
                        Intent intent = new Intent(getApplicationContext(), cv_woker.class);
                        intent.putExtra("id_email", id_email);
+                        intent.putExtra("mobile", mobile);
                        intent.putExtra("idworker", idworker);
                        intent.putExtra("idcompany", idcompany);
                        startActivity(intent);

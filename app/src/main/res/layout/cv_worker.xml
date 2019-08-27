@@ -56,24 +56,12 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/nickname"
+            <EditText android:id="@+id/country"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
-                android:hint="@string/Nic_Name" />
+                android:hint="@string/Country" />
         </android.support.design.widget.TextInputLayout>
-
-        <TextView
-            android:textSize="20dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/Date"/>
-        <Spinner
-            android:id="@+id/date"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"/>
 
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
@@ -87,27 +75,38 @@
                 android:hint="@string/Adress" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- mobile number -->
         <android.support.design.widget.TextInputLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp">
-            <EditText android:id="@+id/phone_number"
+            <EditText android:id="@+id/typework"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
-                android:hint="@string/mobile_number" />
+                android:inputType="textEmailAddress"
+                android:hint="@string/Type_work" />
         </android.support.design.widget.TextInputLayout>
 
-        <!-- Password Label -->
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:layout_marginBottom="8dp">
+            <EditText android:id="@+id/timework"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="textEmailAddress"
+                android:hint="@string/Time_work" />
+        </android.support.design.widget.TextInputLayout>
+
+
         <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="20dp"
-        android:hint="@string/Staudy"/>
+        android:hint="@string/Study"/>
         <Spinner
-            android:id="@+id/staudy"
+            android:id="@+id/study"
             android:layout_marginTop="8dp"
             android:layout_marginBottom="8dp"
             android:layout_width="match_parent"
