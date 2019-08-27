@@ -28,6 +28,11 @@
     <string name="notify">notify</string>
     <string name="search">search</string>
 
+    <string name="Specializing">Specializing</string>
+    <string name="Place">Place</string>
+    <string name="work_description">work description</string>
+    <string name="Create_account_company">Create Company Account</string>
+
     <string name="Create_post">Create Post</string>
     <string name="jobs">jobs</string>
     <string name="Company2">Company</string>
@@ -40,14 +45,14 @@
     <string name="Comment">Comment</string>
     <string name="send_order">send order</string>
 
-    <string name="First_Name">First_Name</string>
-    <string name="Last_Name">Last_Name</string>
+    <string name="First_Name">First Name</string>
+    <string name="Last_Name">Last Name</string>
     <string name="Country">Country</string>
     <string name="Type_work">Work Type</string>
     <string name="Time_work">Work Time</string>
     <string name="Study">Study</string>
     <string name="Qualification">Qualification</string>
-    <string name="Create_cv">Create_cv</string>
+    <string name="Create_cv">Create Cv</string>
 
     <string name="write_number_worker_needed">write number worker needed</string>
     <string name="jobname">Job Name</string>

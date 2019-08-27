@@ -27,7 +27,7 @@ public class My_Adapter_project extends RecyclerView.Adapter<RecyclerView.ViewHo
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
        if(viewType==255)
         {
-            View craeteproject = LayoutInflater.from(parent.getContext()).inflate(R.layout.create_project, null);
+            View craeteproject = LayoutInflater.from(parent.getContext()).inflate(R.layout.craeteproject, null);
             MyViewHolder_createproject crate_projecr = new MyViewHolder_createproject(craeteproject);
             return crate_projecr;
         }

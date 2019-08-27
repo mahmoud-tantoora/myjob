@@ -38,6 +38,13 @@
     <string name="Settings">الاعدادات</string>
     <string name="Logout">تسجيل الخروج</string>
 
+    <string name="Specializing">التخصص</string>
+    <string name="Place">المكان</string>
+    <string name="work_description">وصف عمل الشركة </string>
+    <string name="Create_account_company">إنشاء حساب الشركة</string>
+
+
+
     <string name="Comment">تعليق</string>
     <string name="send_order">ارسال طلب</string>
 

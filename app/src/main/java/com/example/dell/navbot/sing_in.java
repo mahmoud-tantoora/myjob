@@ -65,14 +65,13 @@ public class sing_in extends AppCompatActivity {
                     progressDialog.setMessage("Creating Account...");
                     progressDialog.show();
 */
-                    // final int[] Id_result = {0};
                     final String name = _nameText.getText().toString();
                     final String email = _emailText.getText().toString();
                     final String mobile = _mobileText.getText().toString();
                     final String password = _passwordText.getText().toString();
                     final String reEnterPassword = _reEnterPasswordText.getText().toString();
                     final String value_spinner = _spinner_type.getSelectedItem().toString();
-                 //   final boolean[] f = {false};
+
                     final int spValue[] = {0};
                     if (!password.equals(reEnterPassword)) {
                         Toast.makeText(getApplicationContext(), "Password it's  not Correct", Toast.LENGTH_SHORT).show();
@@ -209,13 +208,25 @@ public class sing_in extends AppCompatActivity {
                         }
 
                         // TODO: Implement your own signup logic here.
-
+                        if (spValue[0] == 1) {
+                            ///create account worker
                        Intent intent = new Intent(getApplicationContext(), cv_woker.class);
                        intent.putExtra("id_email", id_email);
                         intent.putExtra("mobile", mobile);
                        intent.putExtra("idworker", idworker);
                        intent.putExtra("idcompany", idcompany);
-                       startActivity(intent);
+                       startActivity(intent);}
+                       else{
+                            // create account company
+                            Intent intent = new Intent(getApplicationContext(), continue_register_company.class);
+                            intent.putExtra("id_email", id_email);
+                            intent.putExtra("mobile", mobile);
+                            intent.putExtra("idworker", idworker);
+                            intent.putExtra("idcompany", idcompany);
+                            startActivity(intent);
+
+
+                        }
                        // startActivityForResult(intent, 1);
                        finish();
                        overridePendingTransition(R.anim.push_left_in, R.anim.push_left_out);
